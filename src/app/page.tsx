@@ -67,7 +67,7 @@ export default function Home() {
               <div className="flex flex-col items-start gap-4">
                 <h3 className="text-xl font-bold">Boost Productivity</h3>
                 <p className="text-muted-foreground">
-                  Unlock your team's full potential with our intuitive tools and
+                  Unlock your teams full potential with our intuitive tools and
                   features, designed to streamline workflows and drive
                   efficiency.
                 </p>
