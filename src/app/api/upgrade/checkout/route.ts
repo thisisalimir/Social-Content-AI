@@ -63,8 +63,14 @@ export async function POST(req: Request) {
       customer: stripeCustomer?.stripeCustomerId,
       line_items,
       mode: "payment",
-      success_url: `http://localhost:3000/dashboard`,
-      cancel_url: `http://localhost:3000/`,
+      success_url:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/dashboard/"
+          : `https://${process.env.VERCEL_URL}`,
+      cancel_url:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/"
+          : `https://${process.env.VERCEL_URL}`,
       metadata: {
         userId: userId,
       },
