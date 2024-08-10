@@ -32,7 +32,9 @@ async function AIUsage() {
     },
   });
 
-  availableCredit = Number(userCredit?.totalCredit);
+  availableCredit = userCredit?.totalCredit
+    ? 10000
+    : Number(userCredit?.totalCredit);
 
   return (
     <div className="bg-white">

@@ -66,11 +66,11 @@ export async function POST(req: Request) {
       success_url:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/dashboard/"
-          : `https://${process.env.VERCEL_URL}`,
+          : `https://social-content-ai.vercel.app/dashboard/`,
       cancel_url:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/"
-          : `https://${process.env.VERCEL_URL}`,
+          : `https://social-content-ai.vercel.app/`,
       metadata: {
         userId: userId,
       },
