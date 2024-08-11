@@ -14,52 +14,42 @@ interface templateSlugProps {
   templateSlug: string;
 }
 
-function TemplatePage({ params }: { params: templateSlugProps }) {
-  const [isLoading, setIsLoading] = useState(false);
+const TemplatePage = ({ params }: { params: templateSlugProps }) => {
+  const [isLoading, setisLoading] = useState(false);
   const [aiOutput, setAIOutput] = useState<string>("");
 
-  // Get Template
   const selectedTemplate = contentTemplates.find(
     (item) => item.slug === params.templateSlug
   );
 
-  // Generate Content with AI
   const generateAIContent = async (formData: FormData) => {
-    setIsLoading(true);
-
+    setisLoading(true);
     try {
-      // Get Inputs Data
       let dataSet = {
         title: formData.get("title"),
         description: formData.get("description"),
       };
 
-      // Get AI Prompt
       const selectedPrompt = selectedTemplate?.aiPrompt;
-      // Prepare our Final Message with title, desc and AI prompt
       const finalAIPrompt = JSON.stringify(dataSet) + ", " + selectedPrompt;
-      // Send Message to AI
-      const result = await chatSession.sendMessage(finalAIPrompt);
 
+      const result = await chatSession.sendMessage(finalAIPrompt);
       setAIOutput(result.response.text());
 
-      // Send result to DB
       const response = await axios.post("/api/", {
         title: dataSet.title,
         description: result.response.text(),
         templateUsed: selectedTemplate?.name,
       });
-      setIsLoading(false);
+      console.log("response: " + response);
+      setisLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // Submit Data
   const onSubmit = async (formData: FormData) => {
     generateAIContent(formData);
   };
-
   return (
     <div className="mx-5 py-2">
       <div className="mt-5 py-6 px-4 bg-white rounded">
@@ -96,5 +86,6 @@ function TemplatePage({ params }: { params: templateSlugProps }) {
       </div>
     </div>
   );
-}
+};
+
 export default TemplatePage;
